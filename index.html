@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Stack using Linked List</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #423737;
+  margin: 0;
+  padding: 0;
+}
+
+.page-container {
+  background-color: #cac2c2;
+  padding: 20px;
+}
+
+.container {
+  width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(212, 28, 28, 0.1);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+h2.top-element {
+  text-align: center;
+  margin-bottom: 10px;
+  font-family: monospace;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+.stack {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.stack li {
+  position: relative;
+  margin: 0 0 10px 0;
+  padding: 5px;
+  background-color: #928e8e;
+  border-radius: 3px;
+  transition: background-color 0.3s;
+}
+
+.stack li:hover {
+  background-color: #d4d4d4;
+}
+
+.stack li .value {
+  color: #fff;
+  font-weight: bold;
+  margin-right: 20px;
+}
+
+.stack li .arrow {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  background-color: #000;
+  transition: transform 0.3s;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.stack li:last-child .arrow {
+  display: none;
+}
+
+.input {
+  width: 100px;
+  margin-bottom: 10px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.button {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.button:hover {
+  background-color: #555;
+}
+
+</style>
+</head>
+<body>
+<div class="page-container">
+  <div class="container">
+    <h1>Stack using Linked List</h1>
+    <h2 class="top-element"></h2>
+    <ul class="stack"></ul>
+    <input type="text" class="input" placeholder="Enter a number" />
+    <button class="button" onclick="push()">Push</button>
+    <button class="button" onclick="pop()">Pop</button>
+    <button class="button" onclick="top_element()">Top</button>
+  </div>
+</div>
+<script>
+var stack = [];
+
+function push() {
+  var input = document.querySelector(".input");
+  var number = parseInt(input.value);
+
+  if (isNaN(number)) {
+    alert("Please enter a valid number");
+    return;
+  }
+
+  var newNode = {
+    value: number,
+    next: null
+  };
+
+  if (stack.length > 0) {
+    newNode.next = stack[stack.length - 1];
+  }
+
+  stack.push(newNode);
+  updateStack();
+  displayTopElement();
+  input.value = "";
+}
+
+function pop() {
+  if (stack.length === 0) {
+    alert("Stack is empty");
+    return;
+  }
+
+  var node = stack.pop();
+  updateStack();
+  displayTopElement();
+}
+
+function top_element() {
+  if (stack.length === 0) {
+    alert("Stack is empty");
+    return;
+  }
+
+  var node = stack[stack.length - 1];
+  alert("Top element: " + node.value + "\nReference to next node: " + (stack.length > 1 ? stack[stack.length - 2].value : "null"));
+}
+
+function displayTopElement() {
+  var topElement = document.querySelector(".top-element");
+  if (stack.length === 0) {
+    topElement.textContent = "Top element: null";
+  } else {
+    var node = stack[stack.length - 1];
+    topElement.textContent = "Top element: " + node.value;
+  }
+}
+
+function updateStack() {
+  var list = document.querySelector(".stack");
+  list.innerHTML = "";
+
+  for (var i = stack.length - 1; i >= 0; i--) {
+    var node = stack[i];
+
+    var li = document.createElement("li");
+
+    var valueSpan = document.createElement("span");
+    valueSpan.classList.add("value");
+    valueSpan.textContent = "Value: " + node.value;
+    li.appendChild(valueSpan);
+
+    var arrowSpan = document.createElement("span");
+    arrowSpan.classList.add("arrow");
+    arrowSpan.innerHTML = "&#8595;"; // Unicode for downward arrow
+    li.appendChild(arrowSpan);
+
+    var referenceSpan = document.createElement("span");
+    referenceSpan.textContent = "Reference: " + (i > 0 ? stack[i - 1].value : "null");
+    li.appendChild(referenceSpan);
+
+    list.appendChild(li);
+  }
+}
+
+updateStack();
+displayTopElement();
+</script>
+</body>
+</html>
