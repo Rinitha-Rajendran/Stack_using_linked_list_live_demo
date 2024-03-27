@@ -1,6 +1,6 @@
 # Stack using Linked List
 
-This is a simple web application for demonstrating a stack data structure implemented using a linked list. Users can push elements onto the stack, pop elements from the stack, and view the top element. The application provides a visual representation of the stack and allows users to interact with it through a user-friendly interface.
+This is a simple web application for demonstrating a stack data structure implemented using a linked list. Users can push elements onto the stack, pop elements from the stack, and view the top element. The application provides a visual representation of the stack and allows users to interact with it through a user-friendly interface.(GUI Based)
 
 ## Usage
 
